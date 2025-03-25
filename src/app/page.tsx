@@ -3,8 +3,9 @@
 import Image from "next/image"
 import { Heart, Share2, Phone, Mail, MessageSquare, Check, ChevronRight, Bell } from "lucide-react"
 import { Plus } from "lucide-react";
+//import { User } from "lucide-react";
 import { Button } from "@/components/ui/button"
-//import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import Footer from "@/components/footer"
 import SimilarProjects from "@/components/similar-projects"
@@ -260,6 +261,97 @@ export default function PropertyPage() {
           </div>
 
           {/* Description Tabs - Full Width */}
+
+          <div className="mb-8">
+      <Tabs defaultValue="description">
+        <TabsList className="border-b w-full justify-start rounded-none bg-transparent p-0 mb-4">
+          {['description', 'overview', 'amenities', 'floorplans', 'propertyinfo'].map((tab) => (
+            <TabsTrigger
+              key={tab}
+              value={tab}
+              className="rounded-none border-b-2 border-transparent data-[state=active]:border-red-500 data-[state=active]:text-red-500 data-[state=active]:shadow-none px-4 py-2"
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        <TabsContent value="description">
+          <div className="space-y-4">
+            <h3 className="font-medium text-lg">Description</h3>
+            <p className="text-sm text-gray-600">
+              Lorem ipsum is simply dummy text of the printing and typesetting industry...
+            </p>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="overview">
+          <div className="space-y-6">
+            <h3 className="font-medium text-lg">Property Overview</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-y-6">
+              {[
+                { label: 'Carpet Area', value: '936 sq.ft' },
+                { label: 'Bedrooms', value: '3' },
+                { label: 'No. of Balcony', value: 'No Balcony' },
+                { label: 'Bathrooms', value: '2' },
+                { label: 'Parking', value: '1 Open Parking' },
+                { label: 'Added', value: 'December 2023' },
+                { label: 'Property ID', value: '12345' },
+                { label: 'Rera Number', value: 'MH/REG/12345' },
+                { label: 'Possession Date', value: 'Dec 2025' },
+                { label: 'Property Type', value: 'Apartment' }
+              ].map((item) => (
+                <div key={item.label}>
+                  <div className="text-xs text-gray-500">{item.label}</div>
+                  <div className="font-medium">{item.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="amenities">
+          <div className="space-y-6">
+            <h3 className="font-medium text-lg">Amenities</h3>
+            <div className="grid grid-cols-3 md:grid-cols-5 gap-6">
+              {['Car Parking', 'CCTV', 'Wifi', 'Security', 'Parks'].map((amenity) => (
+                <div key={amenity} className="flex flex-col items-center">
+                  <div className="h-10 w-10 flex items-center justify-center bg-gray-100 rounded-full mb-2">
+                    {/* Replace with actual icons */}
+                    <span className="text-lg">🔹</span>
+                  </div>
+                  <div className="text-xs text-center">{amenity}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="floorplans">
+          <div className="space-y-6">
+            <h3 className="font-medium text-lg">Floor Plans</h3>
+            <div className="flex gap-2 mb-4">
+              <Button variant="outline" className="bg-blue-500 text-white hover:bg-blue-600">1 BHK</Button>
+              <Button variant="outline">2 BHK</Button>
+            </div>
+            <div className="border p-4 rounded-lg">
+              <div className="relative h-[300px] w-full">
+                <Image src="/placeholder.svg?height=300&width=600" alt="Floor plan" fill className="object-contain" />
+              </div>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="propertyinfo">
+          <div className="space-y-6">
+            <h3 className="font-medium text-lg">Property Information</h3>
+            <div className="relative h-[300px] w-full rounded-lg overflow-hidden">
+              <Image src="/placeholder.svg?height=300&width=600" alt="Property map" fill className="object-cover" />
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
           
 
           {/* Similar Projects Section */}

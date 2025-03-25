@@ -3,23 +3,29 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-// Props for Tabs component
+// Tabs component (manages state)
 interface TabsProps {
   children: React.ReactNode;
   defaultValue: string;
 }
 
-// Tabs component (manages state)
 const Tabs: React.FC<TabsProps> = ({ children, defaultValue }) => {
   const [activeTab, setActiveTab] = React.useState(defaultValue);
 
   return (
     <div className="w-full">
-      {React.Children.map(children, (child) =>
-        React.isValidElement<TabsTriggerProps | TabsContentProps>(child)
-          ? React.cloneElement(child, { activeTab, setActiveTab })
-          : child
-      )}
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement<TabsTriggerProps | TabsContentProps>(child)) {
+          // Ensure we only pass props to specific components
+          if (
+            (child.type as React.FC)?.displayName === "TabsTrigger" ||
+            (child.type as React.FC)?.displayName === "TabsContent"
+          ) {
+            return React.cloneElement(child, { activeTab, setActiveTab });
+          }
+        }
+        return child;
+      })}
     </div>
   );
 };
@@ -31,7 +37,11 @@ interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TabsList: React.FC<TabsListProps> = ({ children, className, ...props }) => {
-  return <div className={cn("flex border-b border-gray-300", className)} {...props}>{children}</div>;
+  return (
+    <div className={cn("flex border-b border-gray-300", className)} {...props}>
+      {children}
+    </div>
+  );
 };
 
 // TabsTrigger (button for each tab)
@@ -42,7 +52,14 @@ interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
   setActiveTab?: (value: string) => void;
 }
 
-const TabsTrigger: React.FC<TabsTriggerProps> = ({ value, children, activeTab, setActiveTab, className, ...props }) => {
+const TabsTrigger: React.FC<TabsTriggerProps> = ({
+  value,
+  children,
+  activeTab,
+  setActiveTab,
+  className,
+  ...props
+}) => {
   return (
     <button
       onClick={() => setActiveTab?.(value)}
@@ -57,6 +74,7 @@ const TabsTrigger: React.FC<TabsTriggerProps> = ({ value, children, activeTab, s
     </button>
   );
 };
+TabsTrigger.displayName = "TabsTrigger"; // Fix for production build
 
 // TabsContent (content area for each tab)
 interface TabsContentProps {
@@ -68,6 +86,7 @@ interface TabsContentProps {
 const TabsContent: React.FC<TabsContentProps> = ({ value, children, activeTab }) => {
   return activeTab === value ? <div className="p-4">{children}</div> : null;
 };
+TabsContent.displayName = "TabsContent"; // Fix for production build
 
 // Export components
 export { Tabs, TabsList, TabsTrigger, TabsContent };
