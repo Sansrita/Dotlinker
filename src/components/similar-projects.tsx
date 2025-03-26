@@ -41,7 +41,7 @@ export default function SimilarProjects() {
     {
       name: "Tulip Wadhwa Wise City",
       location: "Ulwe, Navi Mumbai",
-      image: "/Img1.png",
+      image: "/Img2.png",
       price1BHK: "₹15 - 25 L",
       price2BHK: "₹25 L - 30 L",
       verified: true,
@@ -49,7 +49,7 @@ export default function SimilarProjects() {
   ];
 
   return (
-    <div className="mb-8">
+    <div className="pt-8 mb-8"> {/* Added padding-top */}
       <h3 className="font-medium text-lg mb-4">Similar Projects</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {projects.map((project, index) => (
@@ -75,7 +75,7 @@ export default function SimilarProjects() {
                 {project.verified && index === 0 ? (
                   <div className="flex items-center space-x-1">
                     <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className="text-xs text-green-500 font-medium">Verified</span>
+                    <span className="text-xs text-black font-medium">Verified</span>
                   </div>
                 ) : project.verified ? (
                   <div>

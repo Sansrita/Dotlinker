@@ -13,7 +13,7 @@ export default function Footer() {
               <span className="text-red-500">linker</span>
             </div>
             <p className="text-sm text-gray-400 mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac commodo augue, eget scelerisque lacus.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum adipisci facere ad ut! Corporis dolor animi quaerat explicabo blanditiis quam.
             </p>
             <div className="flex space-x-2">
   <Button variant="outline" size="icon" className="rounded-full h-8 w-8 border-white">
